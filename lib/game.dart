@@ -4,25 +4,35 @@ enum GuessResult{
 }
 
 class Game {
-  final int answer = Random().nextInt(100) + 1;
-  int _totalGuess = 0;
-
+  late final int answer;
+  int totalGuess = 0;
+  static List<int> guessesList=[];
   // constructor
-  Game() {
-    print('Answer is $answer');
+  Game({required int maxRandom}) {
+    answer = Random().nextInt(maxRandom)+1;
+    //print('Answer is $answer');
   }
 
   GuessResult doGuess(int guess) {
-    _totalGuess++;
+    totalGuess++;
 
     if (guess < answer) {
     return GuessResult.tooLow;
     } else if (guess > answer) {
     return GuessResult.tooHigh;
     } else {
-    return GuessResult.correct;
+      return GuessResult.correct;
     }
+  }
 
-    throw doGuess(guess);
+  void addTotalGuessList(){
+    guessesList.add(totalGuess);
+  }
+  int countListLength(){
+    return guessesList.length;
+  }
+  int lookList(int list){
+    list--;
+    return guessesList[list];
   }
 }
